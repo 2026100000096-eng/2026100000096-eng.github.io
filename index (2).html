@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mamun Ar Rashid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1E3D;
+    --navy-deep:#071733;
+    --blue:#2B6CD4;
+    --red:#D6483F;
+    --green:#2E9E6F;
+    --paper:#F3F1EC;
+    --paper-dim:#c9cad0;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--navy-deep);
+    color:var(--paper);
+    font-family:'Space Grotesk', sans-serif;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:8vh 8vw;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(43,108,212,0.25), transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(214,72,63,0.18), transparent 50%),
+      radial-gradient(circle at 60% 20%, rgba(46,158,111,0.16), transparent 40%),
+      linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, #0d2247);
+    background-size:180% 180%, 180% 180%, 180% 180%, 100% 100%;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift{
+    0%{background-position:0% 0%, 100% 100%, 50% 0%, 0 0;}
+    100%{background-position:30% 20%, 70% 80%, 20% 40%, 0 0;}
+  }
+
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:0.35;
+    pointer-events:none;
+  }
+  .blob.b1{width:340px;height:340px;background:var(--blue);top:-80px;left:-100px;animation:float1 14s ease-in-out infinite;}
+  .blob.b2{width:280px;height:280px;background:var(--red);bottom:-60px;right:-60px;animation:float2 16s ease-in-out infinite;}
+  .blob.b3{width:220px;height:220px;background:var(--green);top:40%;right:10%;animation:float3 12s ease-in-out infinite;}
+
+  @keyframes float1{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(40px,60px) scale(1.15);}
+  }
+  @keyframes float2{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-50px,-30px) scale(1.1);}
+  }
+  @keyframes float3{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-30px,40px) scale(0.9);}
+  }
+
+  .eyebrow{
+    font-size:0.95rem;
+    letter-spacing:0.04em;
+    color:var(--paper-dim);
+    margin-bottom:1.2rem;
+    opacity:0;
+    animation: rise 0.8s ease forwards 0.2s;
+  }
+
+  .name{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2.8rem, 8vw, 6.2rem);
+    line-height:1.02;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0 0.28em;
+    max-width:14ch;
+  }
+
+  .name span{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(40px);
+    animation: rise 0.75s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  @keyframes rise{
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .tagline{
+    margin-top:1.6rem;
+    font-size:clamp(1rem,2vw,1.25rem);
+    color:var(--paper-dim);
+    max-width:42ch;
+    opacity:0;
+    animation: rise 0.8s ease forwards 1.4s;
+  }
+
+  .tagline strong{color:var(--paper); font-weight:500;}
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.4rem;
+    left:8vw;
+    font-size:0.8rem;
+    color:var(--paper-dim);
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    opacity:0;
+    animation: rise 0.8s ease forwards 2s;
+  }
+  .scroll-cue .line{
+    width:34px; height:1px; background:var(--paper-dim);
+    position:relative; overflow:hidden;
+  }
+  .scroll-cue .line::after{
+    content:'';
+    position:absolute; left:-100%; top:0; height:100%; width:100%;
+    background:var(--blue);
+    animation: cue-sweep 2.2s ease-in-out infinite;
+  }
+  @keyframes cue-sweep{
+    0%{left:-100%;}
+    50%{left:100%;}
+    100%{left:100%;}
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    padding:7rem 8vw;
+    max-width:1000px;
+    margin:0 auto;
+  }
+
+  h2.section-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(1.8rem,4vw,2.6rem);
+    margin-bottom:3rem;
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  h2.section-title.in-view{opacity:1; transform:translateY(0);}
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{
+    position:relative;
+    padding-left:2.6rem;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:0.55rem; top:0.4rem; bottom:0.4rem;
+    width:2px;
+    background:linear-gradient(var(--green), var(--red), var(--blue));
+  }
+
+  .stage{
+    position:relative;
+    margin-bottom:3.2rem;
+    opacity:0;
+    transform:translateX(-24px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .stage.in-view{opacity:1; transform:translateX(0);}
+
+  .stage::before{
+    content:'';
+    position:absolute;
+    left:-2.6rem;
+    top:0.35rem;
+    width:14px; height:14px;
+    border-radius:50%;
+    background:var(--dot-color, var(--blue));
+    box-shadow:0 0 0 4px rgba(255,255,255,0.05);
+  }
+  .stage:nth-child(1){--dot-color:var(--green);}
+  .stage:nth-child(2){--dot-color:var(--red);}
+  .stage:nth-child(3){--dot-color:var(--blue);}
+
+  .stage .stage-label{
+    font-size:0.8rem;
+    letter-spacing:0.03em;
+    color:var(--dot-color, var(--blue));
+    margin-bottom:0.35rem;
+  }
+
+  .stage h3{
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    font-weight:600;
+    margin-bottom:0.4rem;
+  }
+
+  .stage p{
+    color:var(--paper-dim);
+    max-width:52ch;
+    line-height:1.55;
+  }
+
+  .gpa{
+    display:inline-flex;
+    align-items:baseline;
+    gap:0.4rem;
+    margin-top:0.6rem;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.6rem;
+    color:var(--paper);
+  }
+  .gpa .num{color:var(--dot-color, var(--blue));}
+  .gpa .of{font-size:0.9rem; color:var(--paper-dim); font-family:'Space Grotesk', sans-serif;}
+
+  /* ---------- FOCUS CARD ---------- */
+  .focus{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:1.4rem;
+  }
+  .focus .card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-left:3px solid var(--card-color, var(--blue));
+    padding:1.6rem;
+    border-radius:6px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .focus .card.in-view{opacity:1; transform:translateY(0);}
+  .focus .card:hover{
+    background:rgba(255,255,255,0.06);
+    transform:translateY(-4px);
+  }
+  .focus .card:nth-child(1){--card-color:var(--blue);}
+  .focus .card:nth-child(2){--card-color:var(--green);}
+  .focus .card:nth-child(3){--card-color:var(--red);}
+
+  .focus .card h4{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    margin-bottom:0.5rem;
+    color:var(--card-color);
+  }
+  .focus .card p{color:var(--paper-dim); font-size:0.94rem; line-height:1.5;}
+
+  footer{
+    text-align:center;
+    padding:3rem 8vw 4rem;
+    color:var(--paper-dim);
+    font-size:0.85rem;
+  }
+  footer .dots{
+    display:flex; justify-content:center; gap:0.5rem; margin-bottom:1rem;
+  }
+  footer .dots span{
+    width:8px; height:8px; border-radius:50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  footer .dots span:nth-child(1){background:var(--green); animation-delay:0s;}
+  footer .dots span:nth-child(2){background:var(--red); animation-delay:0.3s;}
+  footer .dots span:nth-child(3){background:var(--blue); animation-delay:0.6s;}
+  @keyframes pulse{
+    0%,100%{opacity:0.3; transform:scale(0.85);}
+    50%{opacity:1; transform:scale(1.15);}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="eyebrow">Computer Science &amp; Engineering</div>
+  <h1 class="name" id="nameHeading"></h1>
+  <p class="tagline">CSE student at <strong>Southeast University</strong>, building a foundation in software and systems — one course at a time.</p>
+
+  <div class="scroll-cue"><span class="line"></span> scroll</div>
+</section>
+
+<section id="path">
+  <h2 class="section-title">Academic path</h2>
+  <div class="timeline">
+    <div class="stage">
+      <div class="stage-label">Secondary School Certificate</div>
+      <h3>Ideal School &amp; College</h3>
+      <p>Completed the SSC examination, closing out secondary school with a full mark result.</p>
+      <div class="gpa"><span class="num" data-target="5.00">0.00</span><span class="of">/ 5.00 GPA</span></div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">Higher Secondary Certificate</div>
+      <h3>Dhaka City College</h3>
+      <p>Completed the HSC examination, building the groundwork that led into engineering studies.</p>
+      <div class="gpa"><span class="num" data-target="4.42">0.00</span><span class="of">/ 5.00 GPA</span></div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">Undergraduate — In Progress</div>
+      <h3>Southeast University</h3>
+      <p>Currently studying Computer Science &amp; Engineering, working through core coursework in programming, systems, and theory.</p>
+    </div>
+  </div>
+</section>
+
+<section id="focus">
+  <h2 class="section-title">What I'm building on</h2>
+  <div class="focus">
+    <div class="card">
+      <h4>Programming Foundations</h4>
+      <p>Strengthening core problem-solving through coursework in data structures and algorithms.</p>
+    </div>
+    <div class="card">
+      <h4>Systems Thinking</h4>
+      <p>Learning how software, hardware, and networks fit together at the CSE curriculum's core.</p>
+    </div>
+    <div class="card">
+      <h4>Steady Progress</h4>
+      <p>Carrying a consistent academic record from SSC through HSC into university-level study.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="dots"><span></span><span></span><span></span></div>
+  Mamun Ar Rashid — CSE, Southeast University
+</footer>
+
+<script>
+  // Animate name letter-by-letter
+  const name = "Mamun Ar Rashid";
+  const heading = document.getElementById('nameHeading');
+  let delay = 0.3;
+  [...name].forEach((ch) => {
+    const span = document.createElement('span');
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = delay + 's';
+    heading.appendChild(span);
+    delay += 0.045;
+  });
+
+  // Scroll reveal
+  const revealTargets = document.querySelectorAll('.section-title, .stage, .focus .card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.2});
+  revealTargets.forEach(t => io.observe(t));
+
+  // GPA count-up, triggered once visible
+  const gpaEls = document.querySelectorAll('.gpa .num');
+  const gpaIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        let current = 0;
+        const step = target / 40;
+        const tick = () => {
+          current += step;
+          if(current >= target){
+            el.textContent = target.toFixed(2);
+          } else {
+            el.textContent = current.toFixed(2);
+            requestAnimationFrame(tick);
+          }
+        };
+        tick();
+        gpaIO.unobserve(el);
+      }
+    });
+  }, {threshold:0.5});
+  gpaEls.forEach(el => gpaIO.observe(el));
+</script>
+
+</body>
+</html>
